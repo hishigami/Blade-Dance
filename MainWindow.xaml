@@ -1,0 +1,138 @@
+﻿<Window x:Class="BladeDance.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BladeDance"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Blade Dance: Path of the Spectre RP Calculator" Height="475" Width="800" ResizeMode="NoResize" Icon=".\icon.ico">
+    <TabControl>
+        <TabItem Header="Calculate">
+            <Canvas>
+                <Canvas.Background>
+                    <ImageBrush ImageSource="images/blade.jpg" Opacity="0.25"/>
+                </Canvas.Background>
+                <GroupBox Header="Current Progress" Height="115" Width="297" Canvas.Left="22" Canvas.Top="10"/>
+                <Label Content="Remaining Weeks" Canvas.Left="40" Canvas.Top="36"/>
+                <xctk:IntegerUpDown x:Name="intTime" Width="120" Canvas.Left="180" Canvas.Top="38" Value="8" Minimum="1" Maximum="8"
+                                    DefaultValue="8" DisplayDefaultValueOnEmptyText="True"/>
+                <Label Content="Total Points" Canvas.Left="40" Canvas.Top="76"/>
+                <xctk:IntegerUpDown x:Name="intPoints" Width="120" Canvas.Left="180" Canvas.Top="78" Value="0" Minimum="0"
+                                    DefaultValue="0" DisplayDefaultValueOnEmptyText="True"
+                                    ToolTip="Including both the RP you currently have and RP spent on the Path tree."/>
+
+                <GroupBox Header="Content Pacing" Height="239" Width="297" Canvas.Left="22" Canvas.Top="145"/>
+                <Label Content="Applicable Normals" Canvas.Left="40" Canvas.Top="177"/>
+                <xctk:IntegerUpDown x:Name="intNormals" Canvas.Left="180" Canvas.Top="181" Value="0" Minimum="0" Width="120" DefaultValue="0"
+                            DisplayDefaultValueOnEmptyText="True">
+                    <xctk:IntegerUpDown.ToolTip>
+                        <ToolTip>
+                            <TextBlock>
+                                15 RP per run. Eligible dungeons: <LineBreak/>
+                                • Spectre Event dungeons <LineBreak/>
+                                • Arad Adventure Daily <LineBreak/>
+                                • Guide of Wisdom <LineBreak/>
+                                • Stormy Route <LineBreak/>
+                                • 2+2 <LineBreak/>
+                                • Black Purgatory daily dungeons
+                            </TextBlock>
+                        </ToolTip>
+                    </xctk:IntegerUpDown.ToolTip>
+                </xctk:IntegerUpDown>
+                <Label Content="Prey-Isys Raid" Canvas.Left="40" Canvas.Top="217"/>
+                <ComboBox x:Name="cmbIsys" Width="120" Canvas.Left="180" Canvas.Top="221" SelectedIndex="0"
+                          ToolTip="150 RP per raid.">
+                    <ComboBoxItem Content="0"/>
+                    <ComboBoxItem Content="1"/>
+                    <ComboBoxItem Content="2"/>
+                </ComboBox>
+                <Label Content="The Oculus" Canvas.Left="40" Canvas.Top="257"/>
+                <ComboBox x:Name="cmbOculus" Width="120" Canvas.Left="180" Canvas.Top="261" SelectedIndex="0"
+                          ToolTip="200 RP per Sanctum of Resurrection run.">
+                    <ComboBoxItem Content="0"/>
+                    <ComboBoxItem Content="1"/>
+                    <ComboBoxItem Content="2"/>
+                </ComboBox>
+                <Label Content="Sirocco + Ozma Raids" Canvas.Left="40" Canvas.Top="297"/>
+                <ComboBox x:Name="cmbRaids" Width="120" Canvas.Left="180" Canvas.Top="301" SelectedIndex="0"
+                          ToolTip="250 RP per raid.">
+                    <ComboBoxItem Content="0"/>
+                    <ComboBoxItem Content="1"/>
+                    <ComboBoxItem Content="2"/>
+                    <ComboBoxItem Content="3"/>
+                    <ComboBoxItem Content="4"/>
+                </ComboBox>
+                <Label Content="Cult of Darkness" Canvas.Left="40" Canvas.Top="337"/>
+                <ComboBox x:Name="cmbCult" Width="120" Canvas.Left="180" Canvas.Top="341" SelectedIndex="0"
+                          ToolTip="The Exile Mountains and weekly Black Purgatory. 300 RP per run.">
+                    <ComboBoxItem Content="0"/>
+                    <ComboBoxItem Content="1"/>
+                    <ComboBoxItem Content="2"/>
+                    <ComboBoxItem Content="3"/>
+                    <ComboBoxItem Content="4"/>
+                </ComboBox>
+                
+                <GroupBox Header="Calculator Mode" Height="55" Width="335" Canvas.Left="420" Canvas.Top="10">
+                    <StackPanel x:Name="StackMode" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        <RadioButton x:Name="RadioMythic" Content="Rush Mythic Conversion" IsChecked="True" Margin="25 5">
+                            <RadioButton.ToolTip>
+                                <TextBlock>
+                                For routing towards the 5 Mythic Conversion Stone nodes and reaching the end ASAP. <LineBreak/>
+                                This requires 13500 RP at minimum.
+                                </TextBlock>
+                            </RadioButton.ToolTip>
+                        </RadioButton>
+                        <RadioButton x:Name="RadioFull" Content="Full Clear" Margin="25 5">
+                            <RadioButton.ToolTip>
+                                <TextBlock>
+                                For buying out the entire tree. <LineBreak/>
+                                This requires 21600 RP at minimum.
+                                </TextBlock>
+                            </RadioButton.ToolTip>
+                        </RadioButton>
+                    </StackPanel>
+                </GroupBox>
+                <Button Canvas.Left="420" Canvas.Top="90" Height="50" Width="125" Click="CalculateClick">
+                    <TextBlock FontWeight="Bold">Calculate Results</TextBlock>
+                </Button>
+                <Button Foreground="Red" Canvas.Left="630" Canvas.Top="90" Height="50" Width="125" Click="ResetClick">
+                    <TextBlock FontWeight="Bold">Reset Fields</TextBlock>
+                </Button>
+
+                <GroupBox Header="Output" Height="221" Width="335" Canvas.Left="420" Canvas.Top="163">
+                    <TextBlock x:Name="txtOutput" TextWrapping="Wrap" Height="192" Margin="0,0,-2,0">
+                    </TextBlock>
+                </GroupBox>
+            </Canvas>
+        </TabItem>
+        <TabItem Header="@HELP">
+            <DockPanel>
+                <DockPanel.Background>
+                    <ImageBrush ImageSource="images/blade.jpg" Opacity="0.25"/>
+                </DockPanel.Background>
+                <TextBlock FontSize="15" TextWrapping="Wrap" Width="750">
+                    <Bold>Using the Calculator</Bold><LineBreak/>
+                    As the name suggests, this program is used to help calculate the amount of RP you'll accumulate in DFO's
+                    Song of the Spectre event's Path/100 "shop tree" portion. <LineBreak/>
+                    Enter your total points (this includes both how much you currently have and spent), remaining time, <LineBreak/>
+                    and the number of times you're running the specified content for every remaining day/week. <LineBreak/>
+                    The output will report how many points you'll get and whether it's enough to get all of the static <LineBreak/>
+                    Mythic Conversion Stone nodes from the tree or to completely buy it out excepting the Completion box. <LineBreak/>
+                    If you have enough points to hit your selected quota, surplus points will allow the program to also
+                    report how many potential Completion Boxes you can purchase, if applicable. <LineBreak/>
+                    The program will not know how you're spending your FP and how much you actually have <LineBreak/>
+                    when inputting normal dungeons run per day. Plan around your current play habits; <LineBreak/>
+                    the calculator is meant to be an aid, not a rigid planner for the rest of the event. <LineBreak/>
+                    <Bold>RP Footnotes</Bold><LineBreak/>
+                    Hall of Experience nodes reward 200 RP each up to Oculus, then 250 RP each up to Prey-Isys. <LineBreak/>
+                    Both 100 raids yield 500 RP within the Hall of Experience. <LineBreak/>
+                    Mouse over each content's field in the calculator for their Hall of Exploration RP yield. <LineBreak/>
+                    All Hall of Exploration nodes reward RP upon clearing. It doesn't matter if you don't actually get rewards. <LineBreak/>
+                    Mouse over a calculator mode option for its RP quota.<LineBreak/>
+                    Each Path of the Spectre Completion Box costs 2000 RP after satisfying the selected goal's quota.
+                </TextBlock>
+            </DockPanel>
+        </TabItem>
+    </TabControl>
+</Window>
